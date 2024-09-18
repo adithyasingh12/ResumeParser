@@ -152,4 +152,7 @@ if uploaded_file is not None and skills:
     csv = df.to_csv(index=False).encode('utf-8')
     st.download_button(
         label="Download Skills Data as CSV",
-       
+        data=csv,
+        file_name="skills.csv",
+        mime='text/csv',
+    )
