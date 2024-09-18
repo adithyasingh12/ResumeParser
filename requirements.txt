@@ -2,3 +2,5 @@ pymupdf
 spacy
 pandas
 streamlit
+seaborn
+matplotlib
