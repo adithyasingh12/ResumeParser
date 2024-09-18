@@ -8,11 +8,15 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import streamlit as st
 
-# Try loading the 'en_core_web_sm' model; if it fails, install it
+# Function to install the spaCy model if not present
+def install_spacy_model():
+    subprocess.run([sys.executable, "-m", "spacy", "download", "en_core_web_sm"])
+
+# Try loading the 'en_core_web_sm' model; install it if it doesn't exist
 try:
     nlp = spacy.load("en_core_web_sm")
 except OSError:
-    subprocess.run([sys.executable, "-m", "spacy", "download", "en_core_web_sm"])
+    install_spacy_model()
     nlp = spacy.load("en_core_web_sm")
 
 
@@ -27,7 +31,7 @@ industry_skills = {
         "Xero", "tax planning", "variance analysis", "balance sheet", "income statement",
         "cash flow statement", "credit analysis", "hedge accounting", "IFRS"
     ],
-    # ... (rest of your industry skills dictionary)
+    # Additional categories are omitted for brevity, but include all your industry skill categories here.
 }
 
 
@@ -148,7 +152,4 @@ if uploaded_file is not None and skills:
     csv = df.to_csv(index=False).encode('utf-8')
     st.download_button(
         label="Download Skills Data as CSV",
-        data=csv,
-        file_name="skills.csv",
-        mime='text/csv',
-    )
+       
